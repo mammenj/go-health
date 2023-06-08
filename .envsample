@@ -1,0 +1,4 @@
+K_USERID = 
+K_PWD =
+DB = ./your.db
+DB_DIALECT = sqlite3

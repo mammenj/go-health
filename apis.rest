@@ -1,0 +1,216 @@
+
+###
+GET http://localhost:8080/procs HTTP/1.1
+
+###
+POST http://localhost:8080/procs HTTP/1.1
+
+    {
+      
+      "name": "Cardiac bypass surgery",
+      "description": "Cardiac Bypass surgery cost in US is USD 70 to 200K ",
+      "cost": 8000
+    }
+
+###
+POST http://localhost:8080/procs HTTP/1.1
+
+    {
+      
+      "name": "Joint replacement surgery",
+      "description": "Joint replacement surgery (hip, knee, shoulder, etc.) in US is $30,000 - $50,000",
+      "cost": 10000
+    }
+
+###
+POST http://localhost:8080/procs HTTP/1.1
+
+    {
+      
+      "name": "IVF",
+      "description": "In vitro fertilization (IVF) and reproductive treatments in USA: $12,000 - $20,000",
+      "cost": 6000
+    }
+
+###
+POST http://localhost:8080/procs HTTP/1.1
+
+    {
+      
+      "name": "Organ transplantation",
+      "description": "Organ transplantation (kidney, liver, heart, etc.) USA: $300,000 - $1,000,000",
+      "cost": 150000
+    }
+
+###
+POST http://localhost:8080/procs HTTP/1.1
+
+    {
+      
+      "name": "Spinal surgery (disc replacement, spinal fusion)",
+      "description": "Spinal surgery (disc replacement, spinal fusion) USA: $50,000 - $100,000",
+      "cost": 150000
+    }
+
+###
+POST http://localhost:8080/procs HTTP/1.1
+
+    {
+      
+      "name": "Cosmetic and plastic surgery",
+      "description": "Cosmetic and plastic surgery (facelift, breast augmentation, liposuction, etc.) USA: $6,000 - $20,000",
+      "cost": 8000
+    }
+
+###
+POST http://localhost:8080/procs HTTP/1.1
+
+    {
+      
+      "name": "Weight loss surgery",
+      "description": "Weight loss surgery (gastric bypass, gastric sleeve) USA: $20,000 - $35,000",
+      "cost": 10000
+    }
+
+###
+POST http://localhost:8080/procs HTTP/1.1
+
+    {
+      
+      "name": "Cancer treatments",
+      "description": "Cancer treatments (chemotherapy, radiation therapy, immunotherapy) USA: $10,000 - $30,000 per cycle",
+      "cost": 15000
+    }
+
+###
+POST http://localhost:8080/procs HTTP/1.1
+
+    {
+      
+      "name": "Eye surgeries",
+      "description": "Eye surgeries (cataract surgery, LASIK) USA: $2,000 - $4,000 per eye",
+      "cost": 1500
+    }
+
+###
+POST http://localhost:8080/procs HTTP/1.1
+
+    {
+      
+      "name": "Dental procedures",
+      "description": "Dental procedures (dental implants, smile makeovers) USA: $1,500 - $6,000 per implant, $500 - $3,000 for cosmetic procedures",
+      "cost": 2000
+    }
+
+###
+POST http://localhost:8080/procs HTTP/1.1
+
+    {
+      
+      "name": "Weight loss surgery",
+      "description": "Weight loss surgery (gastric bypass, gastric sleeve) USA: $20,000 - $35,000",
+      "cost": 10000
+    }
+
+### 
+POST http://localhost:8080/procs HTTP/1.1
+
+    {
+      
+      "name": "Spinal surgery",
+      "description": "Spinal surgery (disc replacement, spinal fusion) USA: $50,000 - $100,000",
+      "cost": 10000
+    }
+
+### 
+### Modify 
+PUT http://localhost:8080/procs/7 HTTP/1.1
+
+    {
+      
+      "name": "Cardiac bypass surgery",
+      "description": "Cardiac Bypass surgery USA: $70,000 - $200,000",
+      "cost": 8000
+    }
+
+###
+DELETE  http://localhost:8080/procs/1822 HTTP/1.1
+
+### Hospital API
+# type Hospital struct {
+# 	Id         int    `json:"id"`
+# 	Name       string `json:"name"`
+# 	Address    string `json:"address"`
+# 	City       string `json:"city"`
+# 	Pin        string `json:"pin"`
+# 	Country    string `json:"country"`
+# 	Created_at string `json:"createdAt"`
+# }
+
+  ###
+GET http://localhost:8080/hospital HTTP/1.1
+###
+POST http://localhost:8080/hospital HTTP/1.1
+
+    {
+      
+      "name": "Manipal Hospital",
+      "city": "Chennai"
+    }
+
+###
+POST http://localhost:8080/hospital HTTP/1.1
+
+    {
+      
+      "name": "Medanta - The Medicity",
+      "city": "Gurugram"
+    }
+###
+POST http://localhost:8080/hospital HTTP/1.1
+
+    {
+      
+      "name": "Narayana Health",
+      "city": "Bengaluru"
+    }
+
+###
+POST http://localhost:8080/hospital HTTP/1.1
+
+    {
+      
+      "name": "Apollo Hospital",
+      "city": "Hyderabad"
+    }
+###
+POST http://localhost:8080/hospital HTTP/1.1
+
+    {
+      
+      "name": "Fortis Escorts Heart Institute",
+      "city": "New Delhi"
+    }
+
+###
+POST http://localhost:8080/hospital HTTP/1.1
+
+    {
+      
+      "name": "All India Institute of Medical Sciences (AIIMS)",
+      "city": "New Delhi"
+    }
+
+###
+
+PUT http://localhost:8080/hospital/1 HTTP/1.1
+
+    {
+      
+      "name": "All India Institute of Medical Sciences (AIIMS)",
+      "city": "New Delhi"
+    }
+
+###
+DELETE  http://localhost:8080/hospital/1212 HTTP/1.1
+
