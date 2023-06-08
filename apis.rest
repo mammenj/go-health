@@ -16,7 +16,6 @@ POST http://localhost:8080/procs HTTP/1.1
 POST http://localhost:8080/procs HTTP/1.1
 
     {
-      
       "name": "Joint replacement surgery",
       "description": "Joint replacement surgery (hip, knee, shoulder, etc.) in US is $30,000 - $50,000",
       "cost": 10000
@@ -24,9 +23,7 @@ POST http://localhost:8080/procs HTTP/1.1
 
 ###
 POST http://localhost:8080/procs HTTP/1.1
-
     {
-      
       "name": "IVF",
       "description": "In vitro fertilization (IVF) and reproductive treatments in USA: $12,000 - $20,000",
       "cost": 6000
@@ -34,7 +31,6 @@ POST http://localhost:8080/procs HTTP/1.1
 
 ###
 POST http://localhost:8080/procs HTTP/1.1
-
     {
       
       "name": "Organ transplantation",
@@ -44,7 +40,6 @@ POST http://localhost:8080/procs HTTP/1.1
 
 ###
 POST http://localhost:8080/procs HTTP/1.1
-
     {
       
       "name": "Spinal surgery (disc replacement, spinal fusion)",
@@ -54,9 +49,7 @@ POST http://localhost:8080/procs HTTP/1.1
 
 ###
 POST http://localhost:8080/procs HTTP/1.1
-
-    {
-      
+    {   
       "name": "Cosmetic and plastic surgery",
       "description": "Cosmetic and plastic surgery (facelift, breast augmentation, liposuction, etc.) USA: $6,000 - $20,000",
       "cost": 8000
@@ -64,9 +57,7 @@ POST http://localhost:8080/procs HTTP/1.1
 
 ###
 POST http://localhost:8080/procs HTTP/1.1
-
     {
-      
       "name": "Weight loss surgery",
       "description": "Weight loss surgery (gastric bypass, gastric sleeve) USA: $20,000 - $35,000",
       "cost": 10000
@@ -74,9 +65,7 @@ POST http://localhost:8080/procs HTTP/1.1
 
 ###
 POST http://localhost:8080/procs HTTP/1.1
-
     {
-      
       "name": "Cancer treatments",
       "description": "Cancer treatments (chemotherapy, radiation therapy, immunotherapy) USA: $10,000 - $30,000 per cycle",
       "cost": 15000
@@ -84,9 +73,7 @@ POST http://localhost:8080/procs HTTP/1.1
 
 ###
 POST http://localhost:8080/procs HTTP/1.1
-
     {
-      
       "name": "Eye surgeries",
       "description": "Eye surgeries (cataract surgery, LASIK) USA: $2,000 - $4,000 per eye",
       "cost": 1500
@@ -94,9 +81,7 @@ POST http://localhost:8080/procs HTTP/1.1
 
 ###
 POST http://localhost:8080/procs HTTP/1.1
-
-    {
-      
+   {
       "name": "Dental procedures",
       "description": "Dental procedures (dental implants, smile makeovers) USA: $1,500 - $6,000 per implant, $500 - $3,000 for cosmetic procedures",
       "cost": 2000
@@ -104,9 +89,7 @@ POST http://localhost:8080/procs HTTP/1.1
 
 ###
 POST http://localhost:8080/procs HTTP/1.1
-
     {
-      
       "name": "Weight loss surgery",
       "description": "Weight loss surgery (gastric bypass, gastric sleeve) USA: $20,000 - $35,000",
       "cost": 10000
@@ -114,9 +97,8 @@ POST http://localhost:8080/procs HTTP/1.1
 
 ### 
 POST http://localhost:8080/procs HTTP/1.1
-
     {
-      
+
       "name": "Spinal surgery",
       "description": "Spinal surgery (disc replacement, spinal fusion) USA: $50,000 - $100,000",
       "cost": 10000
