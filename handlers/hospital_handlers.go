@@ -1,4 +1,4 @@
-package main
+package handlers
 
 import (
 	"net/http"
@@ -14,7 +14,7 @@ func init() {
 	store = models.NewSqlliteStore()
 }
 
-func createHospital(c *gin.Context) {
+func CreateHospital(c *gin.Context) {
 	// Validate input
 	var input models.Hospital
 	if err := c.ShouldBindJSON(&input); err != nil {
@@ -33,10 +33,15 @@ func createHospital(c *gin.Context) {
 	c.JSON(200, gin.H{"message": "A new Hosipital ID: " + ID + "Created!"})
 }
 
-func getHospitals(c *gin.Context) {
+func GetHospitals(c *gin.Context) {
 
 	hospitals, err := store.Get()
-	checkErr(err)
+
+	if err != nil {
+		c.JSON(500, gin.H{"error": err.Error()})
+		return
+
+	}
 
 	if hospitals == nil {
 		c.JSON(404, gin.H{"error": "No Hospital Records Found"})
@@ -47,7 +52,7 @@ func getHospitals(c *gin.Context) {
 
 }
 
-func updateHospital(c *gin.Context) {
+func UpdateHospital(c *gin.Context) {
 	// Validate input
 	userid := c.Param("id")
 	id, perr := strconv.Atoi(userid)
@@ -72,7 +77,7 @@ func updateHospital(c *gin.Context) {
 
 }
 
-func deleteHospital(c *gin.Context) {
+func DeleteHospital(c *gin.Context) {
 	// Get model if exist
 	if err := store.Delete(c.Param("id")); err != nil {
 		c.JSON(500, gin.H{"error": err.Error()})

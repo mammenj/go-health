@@ -1,4 +1,4 @@
-package main
+package handlers
 
 import (
 	"net/http"
@@ -14,8 +14,8 @@ func init() {
 	proc_store = models.NewSqlliteProcStore()
 }
 
-func postMedProcs(c *gin.Context) {
-	// Validate input
+func PostMedProcs(c *gin.Context) {
+	// Valiate input
 
 	var input models.MedProcs
 	if err := c.ShouldBindJSON(&input); err != nil {
@@ -34,11 +34,15 @@ func postMedProcs(c *gin.Context) {
 	c.JSON(200, gin.H{"message": "A new Practice Record " + ID + "Created!"})
 }
 
-func readMedProcs(c *gin.Context) {
+func ReadMedProcs(c *gin.Context) {
 
 	medprocs, err := proc_store.Get()
-	checkErr(err)
 
+	if err != nil {
+		c.JSON(500, gin.H{"error": err.Error()})
+		return
+
+	}
 	if medprocs == nil {
 		c.JSON(404, gin.H{"error": "No Records Found"})
 		return
@@ -47,7 +51,7 @@ func readMedProcs(c *gin.Context) {
 	c.JSON(200, gin.H{"practices": medprocs})
 }
 
-func updateMedProcs(c *gin.Context) {
+func UpdateMedProcs(c *gin.Context) {
 	// Validate input
 	userid := c.Param("id")
 	id, perr := strconv.Atoi(userid)
@@ -72,7 +76,7 @@ func updateMedProcs(c *gin.Context) {
 
 }
 
-func deleteMedProcs(c *gin.Context) {
+func DeleteMedProcs(c *gin.Context) {
 
 	if err := proc_store.Delete(c.Param("id")); err != nil {
 		c.JSON(500, gin.H{"error": err.Error()})

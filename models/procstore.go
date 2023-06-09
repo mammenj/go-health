@@ -5,6 +5,7 @@ import (
 	"fmt"
 
 	"github.com/mammenj/go-health/util"
+	_ "github.com/mattn/go-sqlite3"
 )
 
 type MedProcs struct {
