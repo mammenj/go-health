@@ -83,5 +83,5 @@ func DeleteMedProcs(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"data": true})
+	c.JSON(http.StatusOK, gin.H{"data": "Deleted ID: " + c.Param("id")})
 }
