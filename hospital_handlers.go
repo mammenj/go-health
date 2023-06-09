@@ -30,7 +30,7 @@ func createHospital(c *gin.Context) {
 		return
 
 	}
-	c.JSON(200, gin.H{"message": "A new Hosipital Record " + ID + "Created!"})
+	c.JSON(200, gin.H{"message": "A new Hosipital ID: " + ID + "Created!"})
 }
 
 func getHospitals(c *gin.Context) {
@@ -41,10 +41,10 @@ func getHospitals(c *gin.Context) {
 	if hospitals == nil {
 		c.JSON(404, gin.H{"error": "No Hospital Records Found"})
 		return
-	} else {
-		//queues.Consume()
-		c.JSON(200, gin.H{"hospitals": hospitals})
 	}
+	//queues.Consume()
+	c.JSON(200, gin.H{"hospitals": hospitals})
+
 }
 
 func updateHospital(c *gin.Context) {
@@ -68,7 +68,7 @@ func updateHospital(c *gin.Context) {
 		return
 
 	}
-	c.JSON(200, gin.H{"message": "Hospital Record Updated!", "ID": id})
+	c.JSON(200, gin.H{"message": "Hospital Record Updated!", "ID: ": id})
 
 }
 
@@ -79,5 +79,5 @@ func deleteHospital(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"data": "Hospital " + c.Param("id") + " Record Deleted!"})
+	c.JSON(http.StatusOK, gin.H{"data": "Hospital ID: " + c.Param("id") + " Record Deleted!"})
 }

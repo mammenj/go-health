@@ -42,10 +42,9 @@ func readMedProcs(c *gin.Context) {
 	if medprocs == nil {
 		c.JSON(404, gin.H{"error": "No Records Found"})
 		return
-	} else {
-		//queues.Consume()
-		c.JSON(200, gin.H{"practices": medprocs})
 	}
+	//queues.Consume()
+	c.JSON(200, gin.H{"practices": medprocs})
 }
 
 func updateMedProcs(c *gin.Context) {

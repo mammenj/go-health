@@ -50,7 +50,7 @@ func (p *HospitalSqlliteStore) Delete(id string) error {
 	}
 	deleted, err := res.RowsAffected()
 	if deleted < 1 {
-		return fmt.Errorf("row with id=%v cannot be deleted because it doesn't exist", id)
+		return fmt.Errorf("Hospital with ID: %v cannot be deleted because it doesn't exist", id)
 	}
 	return err
 }
