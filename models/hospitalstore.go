@@ -3,8 +3,10 @@ package models
 import (
 	"database/sql"
 	"fmt"
+	"log"
 
 	//_ "github.com/mattn/go-sqlite3"
+	"github.com/mammenj/go-health/util"
 	_ "modernc.org/sqlite"
 )
 
@@ -86,8 +88,10 @@ func (p *HospitalSqlliteStore) Get() ([]Hospital, error) {
 }
 
 func NewSqlliteHospitalStore() *HospitalSqlliteStore {
-
-	db, err := sql.Open(envs["DB_DIALECT"], envs["DB"])
+	envs := util.LoadEnv()
+	log.Println("ENVS: ", envs)
+	
+	db, err := sql.Open(envs["DB_DIALECT_HOSPITAL"], envs["DB_HOSPITAL"])
 	if err != nil {
 		panic(err)
 	}

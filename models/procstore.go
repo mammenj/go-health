@@ -3,6 +3,7 @@ package models
 import (
 	"database/sql"
 	"fmt"
+	"log"
 
 	"github.com/mammenj/go-health/util"
 	_ "github.com/mattn/go-sqlite3"
@@ -25,12 +26,6 @@ type ProcStore interface {
 
 type ProcSqlliteStore struct {
 	db *sql.DB
-}
-
-var envs map[string]string
-
-func init() {
-	envs = util.LoadEnv()
 }
 
 func (p *ProcSqlliteStore) Create(mp MedProcs) (ID string, err error) {
@@ -91,8 +86,10 @@ func (p *ProcSqlliteStore) Get() ([]MedProcs, error) {
 }
 
 func NewSqlliteProcStore() *ProcSqlliteStore {
+	envs := util.LoadEnv()
+	log.Println("ENVS: ", envs)
 
-	db, err := sql.Open(envs["DB_DIALECT"], envs["DB"])
+	db, err := sql.Open(envs["DB_DIALECT_PROCS"], envs["DB_PROCS"])
 	if err != nil {
 		panic(err)
 	}
