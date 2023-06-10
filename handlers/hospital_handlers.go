@@ -1,15 +1,31 @@
 package handlers
 
 import (
+	"database/sql"
+	"log"
 	"net/http"
 	"strconv"
 
 	"github.com/gin-gonic/gin"
 	"github.com/mammenj/go-health/models"
+	"github.com/mammenj/go-health/util"
 )
 
 type HospitalHandler struct {
 	store models.HospitalStore
+}
+
+func NewSqlliteHospitalStore() *models.HospitalSqlliteStore {
+	envs := util.LoadEnv()
+	log.Println("ENVS: ", envs)
+
+	db, err := sql.Open(envs["DB_DIALECT_HOSPITAL"], envs["DB_HOSPITAL"])
+	if err != nil {
+		panic(err)
+	}
+	return &models.HospitalSqlliteStore{
+		DB: db,
+	}
 }
 
 func CreateHospitalHandler(store models.HospitalStore) *HospitalHandler {

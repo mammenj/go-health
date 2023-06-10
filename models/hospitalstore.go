@@ -3,10 +3,9 @@ package models
 import (
 	"database/sql"
 	"fmt"
-	"log"
 
 	//_ "github.com/mattn/go-sqlite3"
-	"github.com/mammenj/go-health/util"
+
 	_ "modernc.org/sqlite"
 )
 
@@ -28,13 +27,13 @@ type Hospital struct {
 }
 
 type HospitalSqlliteStore struct {
-	db *sql.DB
+	DB *sql.DB
 }
 
 func (p *HospitalSqlliteStore) Create(h Hospital) (ID string, err error) {
 	// horrible SQL goes here
 	// handle errors, etc
-	res, err := p.db.Exec("INSERT INTO hospitals (name, address, city, country, pin) VALUES (?, ?, ?,?,?)", h.Name, h.Address, h.City, h.Country, h.Pin)
+	res, err := p.DB.Exec("INSERT INTO hospitals (name, address, city, country, pin) VALUES (?, ?, ?,?,?)", h.Name, h.Address, h.City, h.Country, h.Pin)
 	if err != nil {
 		return "nil", err
 	}
@@ -49,7 +48,7 @@ func (p *HospitalSqlliteStore) Create(h Hospital) (ID string, err error) {
 func (p *HospitalSqlliteStore) Delete(id string) error {
 	// horrible SQL goes here
 	// handle errors, etc
-	res, err := p.db.Exec("DELETE FROM hospitals WHERE id = ?", id)
+	res, err := p.DB.Exec("DELETE FROM hospitals WHERE id = ?", id)
 	if err != nil {
 		return err
 	}
@@ -60,12 +59,12 @@ func (p *HospitalSqlliteStore) Delete(id string) error {
 	return err
 }
 func (p *HospitalSqlliteStore) Update(h Hospital) error {
-	_, err := p.db.Exec("UPDATE hospitals SET name = ?, address = ?, ciry = ? , country, , pin = ? = ? WHERE id = ?", h.Name, h.Address, h.City, h.Country, h.Pin, h.Id)
+	_, err := p.DB.Exec("UPDATE hospitals SET name = ?, address = ?, ciry = ? , country, , pin = ? = ? WHERE id = ?", h.Name, h.Address, h.City, h.Country, h.Pin, h.Id)
 	return err
 }
 
 func (p *HospitalSqlliteStore) Get() ([]Hospital, error) {
-	rows, err := p.db.Query("SELECT * FROM hospitals")
+	rows, err := p.DB.Query("SELECT * FROM hospitals")
 	if err != nil {
 		return nil, err
 	}
@@ -85,17 +84,4 @@ func (p *HospitalSqlliteStore) Get() ([]Hospital, error) {
 	}
 	return hospitals, nil
 
-}
-
-func NewSqlliteHospitalStore() *HospitalSqlliteStore {
-	envs := util.LoadEnv()
-	log.Println("ENVS: ", envs)
-	
-	db, err := sql.Open(envs["DB_DIALECT_HOSPITAL"], envs["DB_HOSPITAL"])
-	if err != nil {
-		panic(err)
-	}
-	return &HospitalSqlliteStore{
-		db: db,
-	}
 }

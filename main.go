@@ -3,13 +3,12 @@ package main
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/mammenj/go-health/handlers"
-	"github.com/mammenj/go-health/models"
 )
 
 func main() {
 	r := gin.Default()
 
-	proc_handler := handlers.CreateProcslHandler(models.NewSqlliteProcStore())
+	proc_handler := handlers.CreateProcslHandler(handlers.NewSqlliteProcStore())
 	proc_router := r.Group("/procs")
 	{
 		proc_router.POST("/", proc_handler.PostMedProcs)
@@ -17,7 +16,7 @@ func main() {
 		proc_router.GET("/", proc_handler.ReadMedProcs)
 		proc_router.DELETE("/:id", proc_handler.DeleteMedProcs)
 	}
-	hospital_handler := handlers.CreateHospitalHandler(models.NewSqlliteHospitalStore())
+	hospital_handler := handlers.CreateHospitalHandler(handlers.NewSqlliteHospitalStore())
 
 	hospital_router := r.Group("/hospital")
 	{

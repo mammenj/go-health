@@ -3,9 +3,7 @@ package models
 import (
 	"database/sql"
 	"fmt"
-	"log"
 
-	"github.com/mammenj/go-health/util"
 	_ "github.com/mattn/go-sqlite3"
 )
 
@@ -25,13 +23,13 @@ type ProcStore interface {
 }
 
 type ProcSqlliteStore struct {
-	db *sql.DB
+	DB *sql.DB
 }
 
 func (p *ProcSqlliteStore) Create(mp MedProcs) (ID string, err error) {
 	// horrible SQL goes here
 	// handle errors, etc
-	res, err := p.db.Exec("INSERT INTO medprocs (name, description, cost) VALUES (?, ?, ?)", mp.Name, mp.Desription, mp.Cost)
+	res, err := p.DB.Exec("INSERT INTO medprocs (name, description, cost) VALUES (?, ?, ?)", mp.Name, mp.Desription, mp.Cost)
 
 	if err != nil {
 		return "nil", err
@@ -47,7 +45,7 @@ func (p *ProcSqlliteStore) Create(mp MedProcs) (ID string, err error) {
 func (p *ProcSqlliteStore) Delete(id string) error {
 	// horrible SQL goes here
 	// handle errors, etc
-	res, err := p.db.Exec("DELETE FROM medprocs WHERE id = ?", id)
+	res, err := p.DB.Exec("DELETE FROM medprocs WHERE id = ?", id)
 	if err != nil {
 		return err
 	}
@@ -58,12 +56,12 @@ func (p *ProcSqlliteStore) Delete(id string) error {
 	return err
 }
 func (p *ProcSqlliteStore) Update(mp MedProcs) error {
-	_, err := p.db.Exec("UPDATE medprocs SET name = ?, description = ?, cost = ? WHERE id = ?", mp.Name, mp.Desription, mp.Cost, mp.Id)
+	_, err := p.DB.Exec("UPDATE medprocs SET name = ?, description = ?, cost = ? WHERE id = ?", mp.Name, mp.Desription, mp.Cost, mp.Id)
 	return err
 }
 
 func (p *ProcSqlliteStore) Get() ([]MedProcs, error) {
-	rows, err := p.db.Query("SELECT * FROM medprocs")
+	rows, err := p.DB.Query("SELECT * FROM medprocs")
 	if err != nil {
 		return nil, err
 	}
@@ -83,17 +81,4 @@ func (p *ProcSqlliteStore) Get() ([]MedProcs, error) {
 	}
 	return medProcs, nil
 
-}
-
-func NewSqlliteProcStore() *ProcSqlliteStore {
-	envs := util.LoadEnv()
-	log.Println("ENVS: ", envs)
-
-	db, err := sql.Open(envs["DB_DIALECT_PROCS"], envs["DB_PROCS"])
-	if err != nil {
-		panic(err)
-	}
-	return &ProcSqlliteStore{
-		db: db,
-	}
 }

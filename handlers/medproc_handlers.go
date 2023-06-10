@@ -1,15 +1,31 @@
 package handlers
 
 import (
+	"database/sql"
+	"log"
 	"net/http"
 	"strconv"
 
 	"github.com/gin-gonic/gin"
 	"github.com/mammenj/go-health/models"
+	"github.com/mammenj/go-health/util"
 )
 
 type ProcslHandler struct {
 	store models.ProcStore
+}
+
+func NewSqlliteProcStore() *models.ProcSqlliteStore {
+	envs := util.LoadEnv()
+	log.Println("ENVS: ", envs)
+
+	db, err := sql.Open(envs["DB_DIALECT_PROCS"], envs["DB_PROCS"])
+	if err != nil {
+		panic(err)
+	}
+	return &models.ProcSqlliteStore{
+		DB: db,
+	}
 }
 
 func CreateProcslHandler(store models.ProcStore) *ProcslHandler {
