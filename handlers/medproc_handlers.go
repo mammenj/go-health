@@ -8,13 +8,15 @@ import (
 	"github.com/mammenj/go-health/models"
 )
 
-var proc_store models.ProcStore
-
-func init() {
-	proc_store = models.NewSqlliteProcStore()
+type ProcslHandler struct {
+	store models.ProcStore
 }
 
-func PostMedProcs(c *gin.Context) {
+func CreateProcslHandler(store models.ProcStore) *ProcslHandler {
+	return &ProcslHandler{store: store}
+}
+
+func (p ProcslHandler) PostMedProcs(c *gin.Context) {
 	// Valiate input
 
 	var input models.MedProcs
@@ -24,7 +26,7 @@ func PostMedProcs(c *gin.Context) {
 	}
 
 	medproc := models.MedProcs{Name: input.Name, Cost: input.Cost, Desription: input.Desription}
-	ID, err := proc_store.Create(medproc)
+	ID, err := p.store.Create(medproc)
 
 	if err != nil {
 		c.JSON(500, gin.H{"error": err.Error()})
@@ -34,9 +36,9 @@ func PostMedProcs(c *gin.Context) {
 	c.JSON(200, gin.H{"message": "A new Practice Record " + ID + "Created!"})
 }
 
-func ReadMedProcs(c *gin.Context) {
+func (p ProcslHandler) ReadMedProcs(c *gin.Context) {
 
-	medprocs, err := proc_store.Get()
+	medprocs, err := p.store.Get()
 
 	if err != nil {
 		c.JSON(500, gin.H{"error": err.Error()})
@@ -51,7 +53,7 @@ func ReadMedProcs(c *gin.Context) {
 	c.JSON(200, gin.H{"practices": medprocs})
 }
 
-func UpdateMedProcs(c *gin.Context) {
+func (p ProcslHandler) UpdateMedProcs(c *gin.Context) {
 	// Validate input
 	userid := c.Param("id")
 	id, perr := strconv.Atoi(userid)
@@ -66,7 +68,7 @@ func UpdateMedProcs(c *gin.Context) {
 		return
 	}
 	medproc := models.MedProcs{Name: input.Name, Cost: input.Cost, Desription: input.Desription, Id: id}
-	err := proc_store.Update(medproc)
+	err := p.store.Update(medproc)
 	if err != nil {
 		c.JSON(500, gin.H{"error": err.Error()})
 		return
@@ -76,9 +78,9 @@ func UpdateMedProcs(c *gin.Context) {
 
 }
 
-func DeleteMedProcs(c *gin.Context) {
+func (p ProcslHandler) DeleteMedProcs(c *gin.Context) {
 
-	if err := proc_store.Delete(c.Param("id")); err != nil {
+	if err := p.store.Delete(c.Param("id")); err != nil {
 		c.JSON(500, gin.H{"error": err.Error()})
 		return
 	}

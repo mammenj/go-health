@@ -85,7 +85,7 @@ func (p *HospitalSqlliteStore) Get() ([]Hospital, error) {
 
 }
 
-func NewSqlliteStore() *HospitalSqlliteStore {
+func NewSqlliteHospitalStore() *HospitalSqlliteStore {
 
 	db, err := sql.Open(envs["DB_DIALECT"], envs["DB"])
 	if err != nil {

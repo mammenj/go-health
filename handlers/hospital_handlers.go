@@ -8,13 +8,15 @@ import (
 	"github.com/mammenj/go-health/models"
 )
 
-var store models.HospitalStore
-
-func init() {
-	store = models.NewSqlliteStore()
+type HospitalHandler struct {
+	store models.HospitalStore
 }
 
-func CreateHospital(c *gin.Context) {
+func CreateHospitalHandler(store models.HospitalStore) *HospitalHandler {
+	return &HospitalHandler{store: store}
+}
+
+func (h *HospitalHandler) CreateHospital(c *gin.Context) {
 	// Validate input
 	var input models.Hospital
 	if err := c.ShouldBindJSON(&input); err != nil {
@@ -23,7 +25,7 @@ func CreateHospital(c *gin.Context) {
 	}
 
 	hospital := models.Hospital{Name: input.Name, Address: input.Address, City: input.City, Country: input.Country, Pin: input.Pin}
-	ID, err := store.Create(hospital)
+	ID, err := h.store.Create(hospital)
 
 	if err != nil {
 		c.JSON(500, gin.H{"error": err.Error()})
@@ -33,9 +35,9 @@ func CreateHospital(c *gin.Context) {
 	c.JSON(200, gin.H{"message": "A new Hosipital ID: " + ID + "Created!"})
 }
 
-func GetHospitals(c *gin.Context) {
+func (h *HospitalHandler) GetHospitals(c *gin.Context) {
 
-	hospitals, err := store.Get()
+	hospitals, err := h.store.Get()
 
 	if err != nil {
 		c.JSON(500, gin.H{"error": err.Error()})
@@ -52,7 +54,7 @@ func GetHospitals(c *gin.Context) {
 
 }
 
-func UpdateHospital(c *gin.Context) {
+func (h *HospitalHandler) UpdateHospital(c *gin.Context) {
 	// Validate input
 	userid := c.Param("id")
 	id, perr := strconv.Atoi(userid)
@@ -67,7 +69,7 @@ func UpdateHospital(c *gin.Context) {
 		return
 	}
 	hospital := models.Hospital{Name: input.Name, Address: input.Address, City: input.City, Country: input.Country, Pin: input.Pin, Id: id}
-	err := store.Update(hospital)
+	err := h.store.Update(hospital)
 	if err != nil {
 		c.JSON(500, gin.H{"error": err.Error()})
 		return
@@ -77,9 +79,9 @@ func UpdateHospital(c *gin.Context) {
 
 }
 
-func DeleteHospital(c *gin.Context) {
+func (h *HospitalHandler) DeleteHospital(c *gin.Context) {
 	// Get model if exist
-	if err := store.Delete(c.Param("id")); err != nil {
+	if err := h.store.Delete(c.Param("id")); err != nil {
 		c.JSON(500, gin.H{"error": err.Error()})
 		return
 	}

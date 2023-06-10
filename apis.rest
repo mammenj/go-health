@@ -116,7 +116,7 @@ PUT http://localhost:8080/procs/7 HTTP/1.1
     }
 
 ###
-DELETE  http://localhost:8080/procs/17 HTTP/1.1
+DELETE  http://localhost:8080/procs/174 HTTP/1.1
 
 ### Hospital API
 # type Hospital struct {
